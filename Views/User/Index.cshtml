@@ -1,0 +1,49 @@
+﻿@model UserListVm
+<h1>
+    Your New Page! Welcome @Model.Name. Last Logged in: @Model.LastLoggedIn
+</h1>
+
+@{
+    var randomValue = Guid.NewGuid();
+    string newName;
+    // if else
+    if (Model.Name == "hola")
+    {
+        newName = "Still hola";
+    }
+    else
+    {
+        newName = "Not hola";
+    }
+
+    // loop: for
+    <ul>
+        @for (int i = 0; i < 25; i++)
+        {
+            <li>
+                @i
+            </li>
+        }
+    </ul>
+
+    List<string> UserStatus = new List<string>()
+    {
+        "Abc", "Def", "CXed", Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString()
+    };
+    
+    <ul>
+        @foreach (var status in UserStatus)
+        {
+            <li>
+                @status
+            </li>
+        }
+    </ul>
+
+}
+
+@randomValue
+
+<h3>
+    @newName
+</h3>

@@ -1,0 +1,86 @@
+﻿@model UserReportVm
+
+@{
+    ViewBag.Title = "User Report";
+    Layout = "_Layout";
+}
+
+<h2>User Report</h2>
+
+<form method="get" class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <!-- asp-for can be used to get form configuration from model. Here, asp-for="Name", the Name is the property of Model 
+                    
+                    We have not written anything inside label like in normal html. ASP.NET core automatically inserts the name from [DisplayName] 
+                    in the attribute
+                    
+                    The below label becomes <label id="Name">Name</label>
+                    
+                    because the model is written as 
+                    [DisplayName("Name")]
+                    public string? Name {get;set;}
+                    
+                    If [DisplayName("Query")] was used <label id="Name">Query</label> would have been displayed
+                    -->
+                    
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" type="search" class="form-control"/>
+                    <!-- This is used to show validation errors if any. Mostly used in transaction form -->
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label asp-for="CreatedDate"></label>
+                    <input asp-for="CreatedDate" type="date" class="form-control"/>
+                    <span class="text-danger" asp-validation-for="CreatedDate"></span>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label asp-for="UserRoleId"></label>
+                    <!-- The asp-items=... is used to build select list. It is present in model -->
+                    <select asp-for="UserRoleId" class="form-control"
+                            asp-items="@Model.UserRoleSelectList()">
+                        <option value="">-- SELECT ROLE --</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="UserRoleId"></span>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <br>
+                    <button class="btn btn-secondary">
+                        🔎 Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="card mt-2">
+    <div class="card-header">
+        <h5 class="card-title">
+            Your input!
+        </h5>
+    </div>
+    <div class="card-body">
+        <ul class="list-group-flush">
+            <li class="list-group-item-info">
+                Name: @Model.Name
+            </li>
+            <li class="list-group-item-info">
+                Created Date: @Model.CreatedDate?.ToString("yyyy-MM-dd")
+            </li>
+
+            <li class="list-group-item-info">
+                User Role Id: @Model.UserRoleId
+            </li>
+
+        </ul>
+    </div>
+</div>
